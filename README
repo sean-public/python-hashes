@@ -1,5 +1,40 @@
-Copyright Information
+python-hashes
+Interesting (non-cryptographic) hashes implemented in pure Python.
 
+Usage
+-----
+Here is a quick example session showing off similarity hashes:
+
+>>> import simhash
+>>> from simhash import simhash
+>>> hash1 = simhash('This is a test string one.')
+>>> hash2 = simhash('This is a test string TWO.')
+>>> hash1
+<simhash.simhash object at 0x7f1f93070c90>
+>>> print hash1, hash2
+10203485745788768176630988232 10749932022170787621889701832
+>>> hash1.hex()
+'0x20f82026a01daffae45cfdc8L'
+>>> hash1.similarity(hash2)
+0.875                   # % of differing bits
+>>> long(hash1) - long(hash2)
+-546446276382019445258713600L
+>>> hash1 < hash2       # Hashes of the same type can be compared
+True
+>>> a_list = [hash2, hash1, 4.2]
+>>> for item in a_list: print item
+10749932022170787621889701832
+10203485745788768176630988232
+4.2
+>>> a_list.sort()       # Because comparisons work, so does sorting
+>>> for item in a_list: print item
+4.2
+10203485745788768176630988232
+10749932022170787621889701832
+
+
+Copyright Information
+---------------------
 All code in this repository is the work of sangelone and may not be 
 used, modified, or published without permission. The license will change 
 eventually.
