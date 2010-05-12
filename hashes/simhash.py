@@ -10,12 +10,12 @@ Part of python-hashes by sangelone. See README for details and license.
 from hashtype import hashtype
 
 class simhash(hashtype):
-    def hash(self, tokens):
-        """Returns a Charikar simhash with appropriate bitlength.
+    def create_hash(self, tokens):
+        """Calculates a Charikar simhash with appropriate bitlength.
         
         Input can be any iterable, but for strings it will automatically
         break it into words first, assuming you don't want to iterate
-        over the individual characters.
+        over the individual characters. Returns nothing.
         
         Reference used: http://dsrg.mff.cuni.cz/~holub/sw/shash
         """
@@ -35,7 +35,7 @@ class simhash(hashtype):
         for i in xrange(self.hashbits):
             if v[i] >= 0:
                 fingerprint += 1 << i        
-        return fingerprint
+        self.hash = fingerprint
 
     def _string_hash(self, v):
         "A variable-length version of Python's builtin hash. Neat!"

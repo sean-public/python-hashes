@@ -7,11 +7,10 @@ Part of python-hashes by sangelone. See README for details and license.
 default_hashbits = 96
 
 class hashtype(object):
-
     def __init__(self, value='', hashbits=default_hashbits):
-        "Relies on hash() provided by subclass"
+        "Relies on create_hash() provided by subclass"
         self.hashbits = hashbits
-        self.hash = self.hash(value)
+        self.create_hash(value)
 
     def __trunc__(self):
         return self.hash
