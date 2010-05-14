@@ -4,7 +4,7 @@ Implementation of Charikar similarity hashes in Python.
 Most useful for creating 'fingerprints' of documents or metadata
 so you can quickly find duplicates or cluster items.
 
-Part of python-hashes by sangelone. See README for details and license.
+Part of python-hashes by sangelone. See README and LICENSE.
 """
 
 from hashtype import hashtype

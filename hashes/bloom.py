@@ -11,7 +11,7 @@ Uses SHA-1 from Python's hashlib, but you can swap that out with any other
 160-bit hash function. Also keep in mind that it starts off very sparse and
 become more dense (and false-positive-prone) as you add more elements.
 
-Part of python-hashes by sangelone. See README for details and license.
+Part of python-hashes by sangelone. See README and LICENSE.
 """
 
 import math

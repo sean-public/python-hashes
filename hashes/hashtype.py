@@ -1,7 +1,7 @@
 """
 Base class from which hash types can be created.
 
-Part of python-hashes by sangelone. See README for details and license.
+Part of python-hashes by sangelone. See README and LICENSE.
 """
 
 default_hashbits = 96
