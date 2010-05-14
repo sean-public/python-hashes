@@ -72,5 +72,5 @@ datastream, whereas Nilsimsa is a digest ideal for documents (language
 doesn't matter) because it uses histograms of *rolling* trigraphs instead
 of the usual bag-of-words model where order doesn't matter.
 
-Related paper: http://spdp.dti.unimi.it/papers/pdcs04.pdf
-Original reference: Reference: http://ixazon.dynip.com/~cmeclax/nilsimsa.html
+[Related paper](http://spdp.dti.unimi.it/papers/pdcs04.pdf) and [original reference](http://ixazon.dynip.com/~cmeclax/nilsimsa.html).
+
