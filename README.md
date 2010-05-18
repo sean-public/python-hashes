@@ -67,9 +67,8 @@ But be careful; it only makes sense to compare equal-length hashes!
 
 The Bloom filter is a space-efficient probabilistic data structure that is
 used to test whether an element is a member of a set. False positives are
-possible, but false negatives are not. Elements can be added to the set, but
-not removed. The more elements that are added to the set, the larger the
-probability of false positives.
+possible, but false negatives are not. Elements can be added to the set but
+not removed.
 
 Uses SHA-1 from Python's hashlib, but you can swap that out with any other
 160-bit hash function. Also keep in mind that it starts off very sparse and
@@ -88,7 +87,8 @@ Here is the basic use case:
     False
     >>> for word in 'these are some tokens to add to the filter'.split():
     ...     hash1.add(word)
-    >>> 'tokens' in hash1
+    >>> 'these' in hash1
+    True
 
 The hash length and number of internal hashes used for the digest are automatically
 determined using your input values `capacity` and `false_positive_rate`. The capacity
