@@ -25,7 +25,7 @@ class geohash(hashtype):
     for i in range(len(_base32)):
         _base32_map[_base32[i]] = i
 
-    def _encode_i2c(self,lat,lon,lat_length,lon_length):
+    def _encode_i2c(self, lat, lon, lat_length, lon_length):
         precision=(lat_length+lon_length)/5
         a, b = lat, lon
         if lat_length < lon_length:
@@ -49,12 +49,12 @@ class geohash(hashtype):
         while longitude >= 180.0:
                 longitude -= 360.0
         
-        lat = latitude/180.0
-        lon = longitude/360.0
+        lat = latitude / 180.0
+        lon = longitude / 360.0
         
-        lat_length=lon_length=precision*5/2
-        if precision%2==1:
-                lon_length+=1
+        lat_length = lon_length = precision * 5 / 2
+        if precision % 2 == 1:
+                lon_length += 1
         
         if lat>0:
                 lat = int((1<<lat_length)*lat)+(1<<(lat_length-1))
@@ -75,7 +75,7 @@ class geohash(hashtype):
         lat_length = 0
         lon_length = 0
 
-        # Unrolled for speed
+        # Unrolled for speed and clarity
         for i in hashcode:
                 t = self._base32_map[i]
                 if bit_length%2==0:
@@ -118,3 +118,8 @@ class geohash(hashtype):
 
     def __init__(self, lat=0.0, long=0.0, precision=12):
         self.encode(lat, long, precision)
+
+    def __long__(self): pass
+    def __float__(self): pass
+    def hex(self): pass
+

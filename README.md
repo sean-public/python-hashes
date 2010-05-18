@@ -5,6 +5,7 @@ Interesting (non-cryptographic) hashes implemented in pure Python. Included so f
  * Bloom filters
  * Charikar similarity hashes 
  * Nilsimsa signatures
+ * geohashes
 
 Each hash is implemented as its own type extended from the base class `hashtype`.
 
