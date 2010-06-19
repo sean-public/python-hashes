@@ -56,8 +56,7 @@ class geohash(hashtype):
         lon = longitude / 360.0
         
         lat_length = lon_length = precision * 5 / 2
-        if not(precision & 1):
-                lon_length += 1
+        lon_length += precision & 1
         
         if lat>0:
                 lat = int((1<<lat_length)*lat)+(1<<(lat_length-1))
@@ -81,7 +80,7 @@ class geohash(hashtype):
         # Unrolled for speed and clarity
         for i in hashcode:
                 t = self._base32_map[i]
-                if bit_length & 1:
+                if not (bit_length & 1):
                         lon = lon<<3
                         lat = lat<<2
                         lon += (t>>2)&4
