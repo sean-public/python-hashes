@@ -26,6 +26,9 @@ class geohash(hashtype):
     for i in range(len(_base32)):
         _base32_map[_base32[i]] = i
 
+    def __init__(self, lat=0.0, long=0.0, precision=12):
+        self.encode(lat, long, precision)
+
     def _encode_i2c(self, lat, lon, lat_length, lon_length):
         precision=(lat_length+lon_length)/5
         a, b = lat, lon
@@ -54,8 +57,7 @@ class geohash(hashtype):
         lon = longitude / 360.0
         
         lat_length = lon_length = precision * 5 / 2
-        if precision % 2 == 1:
-                lon_length += 1
+        lon_length += precision & 1
         
         # Here is where we decide encoding based on quadrant..
         # points near the equator, for example, will have widely 
@@ -82,7 +84,7 @@ class geohash(hashtype):
         # Unrolled for speed and clarity
         for i in hashcode:
                 t = self._base32_map[i]
-                if bit_length%2==0:
+                if not (bit_length & 1):
                         lon = lon<<3
                         lat = lat<<2
                         lon += (t>>2)&4
@@ -120,9 +122,8 @@ class geohash(hashtype):
         
         return latitude, longitude
 
-    def __init__(self, lat=0.0, long=0.0, precision=12):
-        self.encode(lat, long, precision)
-
     def __long__(self): pass
+
     def __float__(self): pass
+
     def hex(self): pass
