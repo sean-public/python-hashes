@@ -21,14 +21,16 @@ from hashtype import hashtype
 
 class bloomfilter(hashtype):
     def __init__(self, value='', capacity=3000, false_positive_rate=0.01):
-        """'value' is the initial string or list of strings to hash,
+        """
+        'value' is the initial string or list of strings to hash,
         'capacity' is the expected upper limit on items inserted, and
         'false_positive_rate' is self-explanatory but the smaller it is, the larger your hashes!
         """
         self.create_hash(value, capacity, false_positive_rate)
 
     def create_hash(self, initial, capacity, error):
-        """Calculates a Bloom filter with the specified parameters.
+        """
+        Calculates a Bloom filter with the specified parameters.
         Initalizes with a string or list/set/tuple of strings. No output.
 
         Reference material: http://bitworking.org/news/380/bloom-filter-resources

@@ -20,6 +20,7 @@ from hashtype import hashtype
 
 
 class geohash(hashtype):
+    # Not the actual RFC 4648 standard; a varation
     _base32 = '0123456789bcdefghjkmnpqrstuvwxyz'
     _base32_map = {}
     for i in range(len(_base32)):
@@ -56,6 +57,9 @@ class geohash(hashtype):
         if precision % 2 == 1:
                 lon_length += 1
         
+        # Here is where we decide encoding based on quadrant..
+        # points near the equator, for example, will have widely 
+        # differing hashes because of this
         if lat>0:
                 lat = int((1<<lat_length)*lat)+(1<<(lat_length-1))
         else:
@@ -122,4 +126,3 @@ class geohash(hashtype):
     def __long__(self): pass
     def __float__(self): pass
     def hex(self): pass
-
