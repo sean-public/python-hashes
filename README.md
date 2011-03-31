@@ -9,6 +9,8 @@ Interesting (non-cryptographic) hashes implemented in pure Python. Included so f
 
 Each hash is implemented as its own type extended from the base class `hashtype`.
 
+** Official repository and latest version: https://github.com/sangelone/python-hashes **
+
 ---
 
 ###simhash
