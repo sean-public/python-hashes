@@ -34,14 +34,14 @@ TRAN = [ord(x) for x in
 
 
 class nilsimsa(hashtype):
-    def __init__(self, value='', hashbits=32):
+    def __init__(self, value='', hashbits=256):
         self.hashbits = hashbits
         self.count = 0          # num characters seen
         self.acc = [0]*256      # accumulators for computing digest
         self.lastch = [-1]*4    # last four seen characters (-1 until set)
         self.create_hash(value)
 
-    def create_hash(data):
+    def create_hash(self, data):
         """Calculates a Nilsimsa signature with appropriate bitlength.        
         Input must be a string. Returns nothing.
         Reference: http://ixazon.dynip.com/~cmeclax/nilsimsa.html

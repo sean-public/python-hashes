@@ -16,6 +16,7 @@ Part of python-hashes by sangelone. See README and LICENSE.
 Based on code by Hiroaki Kawai <kawai@iij.ad.jp> and geohash.org
 """
 
+import math
 from hashtype import hashtype
 
 
@@ -46,6 +47,9 @@ class geohash(hashtype):
         return ret[::-1]
 
     def encode(self, latitude, longitude, precision):
+        self.latitude = latitude
+        self.longitude = longitude
+
         if latitude >= 90.0 or latitude < -90.0:
                 raise Exception("invalid latitude")
         while longitude < -180.0:
@@ -120,6 +124,9 @@ class geohash(hashtype):
         latitude  = 180.0*(lat-(1<<(lat_length-1)))/(1<<lat_length)
         longitude = 360.0*(lon-(1<<(lon_length-1)))/(1<<lon_length)
         
+        self.latitude = latitude
+        self.longitude = longitude
+
         return latitude, longitude
 
     def __long__(self): pass
@@ -127,3 +134,23 @@ class geohash(hashtype):
     def __float__(self): pass
 
     def hex(self): pass
+
+    def unit_distance(self, lat1, long1, lat2, long2):
+        degrees_to_radians = math.pi/180.0
+
+        phi1 = (90.0 - lat1)*degrees_to_radians
+        phi2 = (90.0 - lat2)*degrees_to_radians        
+        theta1 = long1*degrees_to_radians
+        theta2 = long2*degrees_to_radians
+        
+        # Compute spherical distance from spherical coordinates.        
+        cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) + 
+               math.cos(phi1)*math.cos(phi2))
+        return math.acos(cos)
+
+    def distance_in_miles(self, other_hash):
+        return self.unit_distance(self.latitude, self.longitude, other_hash.latitude, other_hash.longitude) * 3960
+
+    def distance_in_km(self, other_hash):
+        return self.unit_distance(self.latitude, self.longitude, other_hash.latitude, other_hash.longitude) * 6373
+

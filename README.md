@@ -64,6 +64,7 @@ But be careful; it only makes sense to compare equal-length hashes!
         raise Exception('Hashes must be of equal size to find similarity')
     Exception: Hashes must be of equal size to find similarity
 
+
 ###bloom
 
 The Bloom filter is a space-efficient probabilistic data structure that is
@@ -115,6 +116,48 @@ but remains sparse until you are done adding the projected number of items:
     >>> len(zlib.compress(hash4.hex()))
     1068
 
+
+###geohash
+
+Geohash is a latitude/longitude geocode system invented by
+Gustavo Niemeyer when writing the web service at geohash.org, and put
+into the public domain.
+
+It is a hierarchical spatial data structure which subdivides space
+into buckets of grid shape. Geohashes offer properties like
+arbitrary precision and the possibility of gradually removing
+characters from the end of the code to reduce its size (and
+gradually lose precision). As a consequence of the gradual
+precision degradation, nearby places will often (but not always)
+present similar prefixes. On the other side, the longer a shared
+prefix is, the closer the two places are. For this implementation,
+the default precision is 12 (base32) characters long.
+
+It's very easy to use:
+
+    >>> from hashes.geohash import geohash
+    >>> here = geohash(33.0505, -1.024, precision=4)
+    >>> there = geohash(34.5, -2.5, precision=4)
+    >>> here.hash, there.hash
+    ('evzs', 'eynk')
+    >>> here.distance_in_miles(there)
+    131.24743425050551
+
+    >>> # The longer the hash, the more accurate it is
+    >>> here.encode(33.0505, -1.024, precision=8)
+    >>> here.hash
+    'evzk08wt'
+    >>> here.decode()
+    (33.050565719604492, -1.0236167907714844)
+
+    >>> # Now try with 20 characters
+    >>> here.encode(33.0505, -1.024, precision=20)
+    >>> here.hash
+    'evzk08wm55drbqbww0j7'
+    >>> here.decode()
+    (33.050499999999936, -1.0239999999998339)
+
+
 ###nilsimsa
 
 Most useful for filtering spam by creating signatures of documents to
@@ -124,3 +167,6 @@ doesn't matter) because it uses histograms of *rolling* trigraphs instead
 of the usual bag-of-words model where order doesn't matter.
 
 [Related paper](http://spdp.dti.unimi.it/papers/pdcs04.pdf) and [original reference](http://ixazon.dynip.com/~cmeclax/nilsimsa.html).
+
+*The Nilsimsa hash does not output the same data as the
+reference implementation.* **Use at your own risk.**

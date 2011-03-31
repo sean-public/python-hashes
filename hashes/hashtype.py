@@ -12,7 +12,7 @@ class hashtype(object):
         self.hashbits = hashbits
         if hash:
             self.hash = hash
-        else
+        else:
             self.create_hash(value)
 
     def __trunc__(self):
