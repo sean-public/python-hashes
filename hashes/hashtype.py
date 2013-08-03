@@ -42,3 +42,9 @@ class hashtype(object):
             tot += 1
             x &= x-1
         return tot
+
+    def __hash__(self):
+        return self.hash
+
+    def __eq__(self, other):
+        return self.hash == other.hash
