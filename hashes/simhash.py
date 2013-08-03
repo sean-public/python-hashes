@@ -15,8 +15,8 @@ class simhash(hashtype):
         
         Input can be any iterable, but for strings it will automatically
         break it into words first, assuming you don't want to iterate
-        over the individual characters. Returns nothing.
-        
+        over the individual characters. Returns fingerprint so it can be used
+        for temporary use without initializing a new object. 
         Reference used: http://dsrg.mff.cuni.cz/~holub/sw/shash
         """
         if type(tokens) == str:
@@ -36,7 +36,7 @@ class simhash(hashtype):
             if v[i] >= 0:
                 fingerprint += 1 << i        
         self.hash = fingerprint
-
+        return fingerprint
     def _string_hash(self, v):
         "A variable-length version of Python's builtin hash. Neat!"
         if v == "":
