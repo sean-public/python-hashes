@@ -53,8 +53,8 @@ class simhash(hashtype):
             return x
 
     def similarity(self, other_hash):
-        """Calculate how different this hash is from another simhash.
-        Returns a float from 0.0 to 1.0 (inclusive)
+        """Calculate how similar this hash is from another simhash.
+        Returns a float from 0.0 to 1.0 (linear distribution, inclusive)
         """
         if type(other_hash) != simhash:
             raise Exception('Hashes must be of same type to find similarity')
