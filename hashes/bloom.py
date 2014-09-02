@@ -66,10 +66,11 @@ class bloomfilter(hashtype):
     def _optimal_size(self, capacity, error):
         """Calculates minimum number of bits in filter array and
         number of hash functions given a number of enteries (maximum)
-        and the desired error rate (falese positives).
+        and the desired error rate (false positives).
         
-        Example:
-            m, k = self._optimal_size(3000, 0.01)   # m=28756, k=7
+        Example: m, k = self._optimal_size(3000, 0.01)   # m=28756, k=7
+        
+        Source: http://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions
         """
         m = math.ceil((capacity * math.log(error)) / math.log(1.0 / (math.pow(2.0, math.log(2.0)))))
         k = math.ceil(math.log(2.0) * m / capacity)
