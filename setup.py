@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(name='python-hashes',
       version='0.1',
@@ -9,5 +9,5 @@ setup(name='python-hashes',
       author_email='angelone@gmail.com',
       url='http://github.com/sangelone/python-hashes',
       download_url='http://github.com/sangelone/python-hashes/downloads',
-      packages=['hashes'],
+      packages=find_packages(),
       )
