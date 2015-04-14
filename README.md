@@ -24,7 +24,7 @@ items. It operates on lists of strings, treating each word as its
 own token (order does not matter, as in the bag-of-words model).
 
 Here is a quick example session showing off similarity hashes:
-
+```python
     >>> from hashes.simhash import simhash
     >>> hash1 = simhash('This is a test string one.')
     >>> hash2 = simhash('This is a test string TWO.')
@@ -50,25 +50,29 @@ Here is a quick example session showing off similarity hashes:
     4.2
     10203485745788768176630988232
     10749932022170787621889701832
+```
 
 It can be extended to any bitlength using the `hashbits` parameter.
 
+```python
     >>> hash3 = simhash('this is yet another test', hashbits=8)
     >>> hash3.hex()
     '0x18'
     >>> hash4 = simhash('extremely long hash bitlength', hashbits=2048)
     >>> hash4.hex()
     '0xf00020585012016060260443bab0f7d76fde5549a6857ecL'
+```
 
 But be careful; it only makes sense to compare equal-length hashes!
 
+```python
     >>> hash3.similarity(hash4)
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
       File "hashes/simhash.py", line 63, in similarity
         raise Exception('Hashes must be of equal size to find similarity')
     Exception: Hashes must be of equal size to find similarity
-
+```
 
 ###bloom
 
@@ -83,6 +87,7 @@ become more dense (and false-positive-prone) as you add more elements.
 
 Here is the basic use case:
 
+```python
     >>> from hashes.bloom import bloomfilter
     >>> hash1 = bloomfilter('test')
     >>> hash1.hashbits, hash1.num_hashes     # default values (see below)
@@ -96,12 +101,14 @@ Here is the basic use case:
     ...     hash1.add(word)
     >>> 'these' in hash1
     True
+```
 
 The hash length and number of internal hashes used for the digest are automatically
 determined using your input values `capacity` and `false_positive_rate`. The capacity
 is the upper bound on the number of items you wish to add. A lower false-positive
 rate will create a larger, but more accurate, filter.
 
+```python
     >>> hash2 = bloomfilter(capacity=100, false_positive_rate=0.01)
     >>> hash2.hashbits, hash2.num_hashes
     (959, 7)
@@ -111,15 +118,18 @@ rate will create a larger, but more accurate, filter.
     >>> hash4 = bloomfilter(capacity=1000000, false_positive_rate=0.0001)
     >>> hash4.hashbits, hash4.num_hashes
     (19170117, 14)
+```
 
 The hash grows in size to accommodate the number of items you wish to add,
 but remains sparse until you are done adding the projected number of items:
 
+```python
     >>> import zlib
     >>> len(hash4.hex())
     250899
     >>> len(zlib.compress(hash4.hex()))
     1068
+```
 
 
 ###geohash
@@ -140,6 +150,7 @@ the default precision is 12 (base32) characters long.
 
 It's very easy to use:
 
+```python
     >>> from hashes.geohash import geohash
     >>> here = geohash(33.0505, -1.024, precision=4)
     >>> there = geohash(34.5, -2.5, precision=4)
@@ -161,6 +172,7 @@ It's very easy to use:
     'evzk08wm55drbqbww0j7'
     >>> here.decode()
     (33.050499999999936, -1.0239999999998339)
+```
 
 
 ###nilsimsa
