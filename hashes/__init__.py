@@ -1,3 +1,1 @@
-#!/usr/bin/env python
-
-"Interesting (non-cryptographic) hashes implemented in pure Python."
+"""Interesting (non-cryptographic) hashes implemented in pure Python."""
