@@ -16,7 +16,7 @@ Part of python-hashes by sangelone. See README and LICENSE.
 
 import math
 import hashlib
-from hashtype import hashtype
+from .hashtype import hashtype
 
 
 class bloomfilter(hashtype):

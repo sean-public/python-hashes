@@ -7,7 +7,7 @@ so you can quickly find duplicates or cluster items.
 Part of python-hashes by sangelone. See README and LICENSE.
 """
 
-from hashtype import hashtype
+from .hashtype import hashtype
 
 class simhash(hashtype):
     def create_hash(self, tokens):

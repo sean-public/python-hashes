@@ -12,7 +12,7 @@ Related paper: http://spdp.dti.unimi.it/papers/pdcs04.pdf
 Part of python-hashes by sangelone. See README and LICENSE.
 """
 
-from hashtype import hashtype
+from .hashtype import hashtype
 
 TRAN = [ord(x) for x in 
     "\x02\xD6\x9E\x6F\xF9\x1D\x04\xAB\xD0\x22\x16\x1F\xD8\x73\xA1\xAC"\

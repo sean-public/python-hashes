@@ -17,7 +17,7 @@ Based on code by Hiroaki Kawai <kawai@iij.ad.jp> and geohash.org
 """
 
 import math
-from hashtype import hashtype
+from .hashtype import hashtype
 
 
 class geohash(hashtype):
