@@ -6,6 +6,7 @@ Part of python-hashes by sangelone. See README and LICENSE.
 
 default_hashbits = 96
 
+
 class hashtype(object):
     def __init__(self, value='', hashbits=default_hashbits, hash=None):
         "Relies on create_hash() provided by subclass"
@@ -20,18 +21,20 @@ class hashtype(object):
 
     def __str__(self):
         return str(self.hash)
-    
+
     def __long__(self):
         return long(self.hash)
 
     def __float__(self):
         return float(self.hash)
-        
+
     def __cmp__(self, other):
-        if self.hash < long(other): return -1
-        if self.hash > long(other): return 1
+        if self.hash < long(other):
+            return -1
+        if self.hash > long(other):
+            return 1
         return 0
-    
+
     def hex(self):
         return hex(self.hash)
 
