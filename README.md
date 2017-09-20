@@ -1,4 +1,4 @@
-#python-hashes
+# python-hashes
 
 Interesting (non-cryptographic) hashes implemented in pure Python. Included so far:
 
@@ -16,7 +16,7 @@ To install the latest version, you can either do `easy_install python-hashes` or
 
 ---
 
-###simhash
+### simhash
 
 Charikar similarity is most useful for creating 'fingerprints' of
 documents or metadata so you can quickly find duplicates or cluster
@@ -74,7 +74,7 @@ But be careful; it only makes sense to compare equal-length hashes!
     Exception: Hashes must be of equal size to find similarity
 ```
 
-###bloom
+### bloom
 
 The Bloom filter is a space-efficient probabilistic data structure that is
 used to test whether an element is a member of a set. False positives are
@@ -132,7 +132,7 @@ but remains sparse until you are done adding the projected number of items:
 ```
 
 
-###geohash
+### geohash
 
 Geohash is a latitude/longitude geocode system invented by
 Gustavo Niemeyer when writing the web service at geohash.org, and put
@@ -175,7 +175,7 @@ It's very easy to use:
 ```
 
 
-###nilsimsa
+### nilsimsa
 
 Most useful for filtering spam by creating signatures of documents to
 find near-duplicates. Charikar similarity hashes can be used on any
