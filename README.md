@@ -9,7 +9,7 @@ Interesting (non-cryptographic) hashes implemented in pure Python. Included so f
 
 Each hash is implemented as its own type extended from the base class `hashtype`.
 
-Official repository and latest version: https://github.com/sangelone/python-hashes
+Official repository and latest version: https://github.com/sean-public/python-hashes
 
 To install the latest version, you can either do `easy_install python-hashes` or
 `pip install python-hashes`. You may need to use `sudo`, depending on your environment.
