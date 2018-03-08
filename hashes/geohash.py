@@ -1,5 +1,5 @@
 """
-Geohash is a latitude/longitude geocode system invented by 
+Geohash is a latitude/longitude geocode system invented by
 Gustavo Niemeyer when writing the web service at geohash.org, and put
 into the public domain.
 
@@ -31,14 +31,14 @@ class geohash(hashtype):
         self.encode(lat, long, precision)
 
     def _encode_i2c(self, lat, lon, lat_length, lon_length):
-        precision = (lat_length + lon_length)/5
+        precision = (lat_length + lon_length) // 5
         a, b = lat, lon
         if lat_length < lon_length:
             a, b = lon, lat
 
         boost = (0, 1, 4, 5, 16, 17, 20, 21)
         ret = ''
-        for i in range(precision):
+        for _ in range(precision):
             ret += self._base32[(boost[a & 7] + (boost[b & 3] << 1)) & 0x1F]
             t = a >> 3
             a = b >> 2
@@ -50,17 +50,18 @@ class geohash(hashtype):
         self.latitude = latitude
         self.longitude = longitude
 
+        # Normalize coordinates
         if latitude >= 90.0 or latitude < -90.0:
-                raise Exception("invalid latitude")
+            raise Exception("invalid latitude")
         while longitude < -180.0:
-                longitude += 360.0
+            longitude += 360.0
         while longitude >= 180.0:
-                longitude -= 360.0
+            longitude -= 360.0
 
         lat = latitude / 180.0
         lon = longitude / 360.0
 
-        lat_length = lon_length = precision * 5 / 2
+        lat_length = lon_length = precision * 5 // 2
         lon_length += precision & 1
 
         # Here is where we decide encoding based on quadrant..
@@ -85,28 +86,28 @@ class geohash(hashtype):
 
         # Unrolled for speed and clarity
         for i in hashcode:
-                t = self._base32_map[i]
-                if not (bit_length & 1):
-                    lon = lon << 3
-                    lat = lat << 2
-                    lon += (t >> 2) & 4
-                    lat += (t >> 2) & 2
-                    lon += (t >> 1) & 2
-                    lat += (t >> 1) & 1
-                    lon += t & 1
-                    lon_length += 3
-                    lat_length += 2
-                else:
-                    lon = lon << 2
-                    lat = lat << 3
-                    lat += (t >> 2) & 4
-                    lon += (t >> 2) & 2
-                    lat += (t >> 1) & 2
-                    lon += (t >> 1) & 1
-                    lat += t & 1
-                    lon_length += 2
-                    lat_length += 3
-                bit_length += 5
+            t = self._base32_map[i]
+            if not (bit_length & 1):
+                lon = lon << 3
+                lat = lat << 2
+                lon += (t >> 2) & 4
+                lat += (t >> 2) & 2
+                lon += (t >> 1) & 2
+                lat += (t >> 1) & 1
+                lon += t & 1
+                lon_length += 3
+                lat_length += 2
+            else:
+                lon = lon << 2
+                lat = lat << 3
+                lat += (t >> 2) & 4
+                lon += (t >> 2) & 2
+                lat += (t >> 1) & 2
+                lon += (t >> 1) & 1
+                lat += t & 1
+                lon_length += 2
+                lat_length += 3
+            bit_length += 5
         return (lat, lon, lat_length, lon_length)
 
     def decode(self):

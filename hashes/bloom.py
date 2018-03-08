@@ -35,7 +35,7 @@ class bloomfilter(hashtype):
 
         Reference material: http://bitworking.org/news/380/bloom-filter-resources
         """
-        self.hash = 0L
+        self.hash = 0
         self.hashbits, self.num_hashes = self._optimal_size(capacity, error)
 
         if len(initial):
@@ -52,12 +52,12 @@ class bloomfilter(hashtype):
         mod down to the length of the Bloom filter.
         """
         m = hashlib.sha1()
-        m.update(item)
+        m.update(item.encode('utf-8'))
         digits = m.hexdigest()
 
         # Add another 160 bits for every 8 (20-bit long) hashes we need
-        for i in range(self.num_hashes / 8):
-            m.update(str(i))
+        for i in range(math.ceil(self.num_hashes / 8)):
+            m.update(str(i).encode('utf-8'))
             digits += m.hexdigest()
 
         hashes = [int(digits[i*5:i*5+5], 16) % self.hashbits for i in range(self.num_hashes)]

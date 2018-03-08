@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 setup(name='python-hashes',
-      version='0.1',
+      version='0.2',
       description='Library of interesting (non-cryptographic) hashes in pure Python.',
       author='sangelone',
       author_email='angelone@gmail.com',

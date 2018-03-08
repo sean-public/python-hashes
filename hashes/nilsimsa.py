@@ -1,10 +1,10 @@
 """
 Implementation of Nilsimsa hashes (signatures) in Python.
 
-Most useful for filtering spam by creating signatures of documents to 
-find near-duplicates. Charikar similarity hashes can be used on any 
-datastream, whereas Nilsimsa is a digest ideal for documents (written 
-in any language) because it uses histograms of [rolling] trigraphs 
+Most useful for filtering spam by creating signatures of documents to
+find near-duplicates. Charikar similarity hashes can be used on any
+datastream, whereas Nilsimsa is a digest ideal for documents (written
+in any language) because it uses histograms of [rolling] trigraphs
 instead of the usual bag-of-words model where order doesn't matter.
 
 Related paper: http://spdp.dti.unimi.it/papers/pdcs04.pdf
@@ -14,7 +14,7 @@ Part of python-hashes by sangelone. See README and LICENSE.
 
 from .hashtype import hashtype
 
-TRAN = [ord(x) for x in 
+TRAN = [ord(x) for x in
     "\x02\xD6\x9E\x6F\xF9\x1D\x04\xAB\xD0\x22\x16\x1F\xD8\x73\xA1\xAC"\
     "\x3B\x70\x62\x96\x1E\x6E\x8F\x39\x9D\x05\x14\x4A\xA6\xBE\xAE\x0E"\
     "\xCF\xB9\x9C\x9A\xC7\x68\x13\xE1\x2D\xA4\xEB\x51\x8D\x64\x6B\x50"\
@@ -42,13 +42,13 @@ class nilsimsa(hashtype):
         self.create_hash(value)
 
     def create_hash(self, data):
-        """Calculates a Nilsimsa signature with appropriate bitlength.        
+        """Calculates a Nilsimsa signature with appropriate bitlength.
         Input must be a string. Returns nothing.
         Reference: http://ixazon.dynip.com/~cmeclax/nilsimsa.html
         """
         if type(data) != str:
             raise Exception('Nilsimsa hashes can only be created on strings')
-        self.hash = 0L
+        self.hash = 0
         self.add(data)
 
     def add(self, data):
@@ -60,16 +60,16 @@ class nilsimsa(hashtype):
 
             # incr accumulators for triplets
             if self.lastch[1] > -1:
-                self.acc[self._tran3(ch, self.lastch[0], self.lastch[1], 0)] +=1
+                self.acc[self._tran3(ch, self.lastch[0], self.lastch[1], 0)] += 1
             if self.lastch[2] > -1:
-                self.acc[self._tran3(ch, self.lastch[0], self.lastch[2], 1)] +=1
-                self.acc[self._tran3(ch, self.lastch[1], self.lastch[2], 2)] +=1
+                self.acc[self._tran3(ch, self.lastch[0], self.lastch[2], 1)] += 1
+                self.acc[self._tran3(ch, self.lastch[1], self.lastch[2], 2)] += 1
             if self.lastch[3] > -1:
-                self.acc[self._tran3(ch, self.lastch[0], self.lastch[3], 3)] +=1
-                self.acc[self._tran3(ch, self.lastch[1], self.lastch[3], 4)] +=1
-                self.acc[self._tran3(ch, self.lastch[2], self.lastch[3], 5)] +=1
-                self.acc[self._tran3(self.lastch[3], self.lastch[0], ch, 6)] +=1
-                self.acc[self._tran3(self.lastch[3], self.lastch[2], ch, 7)] +=1
+                self.acc[self._tran3(ch, self.lastch[0], self.lastch[3], 3)] += 1
+                self.acc[self._tran3(ch, self.lastch[1], self.lastch[3], 4)] += 1
+                self.acc[self._tran3(ch, self.lastch[2], self.lastch[3], 5)] += 1
+                self.acc[self._tran3(self.lastch[3], self.lastch[0], ch, 6)] += 1
+                self.acc[self._tran3(self.lastch[3], self.lastch[2], ch, 7)] += 1
 
             # adjust last seen chars
             self.lastch = [ch] + self.lastch[:3]
@@ -77,7 +77,7 @@ class nilsimsa(hashtype):
 
     def _tran3(self, a, b, c, n):
         """Get accumulator for a transition n between chars a, b, c."""
-        return (((TRAN[(a+n)&255]^TRAN[b]*(n+n+1))+TRAN[(c)^TRAN[n]])&255)
+        return ((TRAN[(a+n) & 255] ^ TRAN[b] * (n+n+1)) + TRAN[(c) ^ TRAN[n]]) & 255
 
     def _digest(self):
         """Get digest of data seen thus far as a list of bytes."""
@@ -89,7 +89,7 @@ class nilsimsa(hashtype):
         elif self.count > 4:                # otherwise 8 triplets/char less
             total = 8 * self.count - 28     # 28 'missed' during 'ramp-up'
 
-        threshold = total / 256             # threshold for accumulators
+        threshold = total / 256            # threshold for accumulators
 
         code = [0]*self.hashbits            # start with all zero bits
         for i in range(256):                # for all 256 accumulators
@@ -99,12 +99,12 @@ class nilsimsa(hashtype):
         code = code[::-1]                   # reverse the byte order
 
         out = 0
-        for i in xrange(self.hashbits):     # turn bit list into real bits
-            if code[i] :
+        for i in range(self.hashbits):     # turn bit list into real bits
+            if code[i]:
                 out += 1 << i
 
         return out
-                            
+
     def similarity(self, other_hash):
         """Calculate how different this hash is from another Nilsimsa.
         Returns a float from 0.0 to 1.0 (inclusive)

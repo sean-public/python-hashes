@@ -25,7 +25,7 @@ class simhash(hashtype):
         v = [0]*self.hashbits
         for t in [self._string_hash(x) for x in tokens]:
             bitmask = 0
-            for i in xrange(self.hashbits):
+            for i in range(self.hashbits):
                 bitmask = 1 << i
                 if t & bitmask:
                     v[i] += 1
@@ -33,7 +33,7 @@ class simhash(hashtype):
                     v[i] -= 1
 
         fingerprint = 0
-        for i in xrange(self.hashbits):
+        for i in range(self.hashbits):
             if v[i] >= 0:
                 fingerprint += 1 << i
         self.hash = fingerprint
