@@ -8,9 +8,10 @@ default_hashbits = 96
 
 
 class hashtype(object):
-    def __init__(self, value='', hashbits=default_hashbits, hash=None):
+    def __init__(self, value='', hashbits=default_hashbits, hash=None, language='english'):
         "Relies on create_hash() provided by subclass"
         self.hashbits = hashbits
+        self.language = language
         if hash:
             self.hash = hash
         else:
