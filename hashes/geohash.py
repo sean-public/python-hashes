@@ -21,7 +21,7 @@ from .hashtype import hashtype
 
 
 class geohash(hashtype):
-    # Not the actual RFC 4648 standard; a varation
+    # Not the actual RFC 4648 standard; a variation
     _base32 = '0123456789bcdefghjkmnpqrstuvwxyz'
     _base32_map = {}
     for i in range(len(_base32)):
